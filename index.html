@@ -2,9 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Дмитрий & Юлия</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -14,11 +15,35 @@ body {
   color: #4a3f35;
 }
 
+/* SECTION */
+section {
+  padding: 80px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 1s;
+}
+
+section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container {
+  max-width: 420px;
+  margin: auto;
+}
+
 /* HERO */
 .hero {
   height: 100vh;
-  background: url('1.jpg') center/cover no-repeat;
-  position: relative;
+  background: url('кольцо.jpg') center/cover no-repeat;
+  animation: zoom 20s infinite alternate;
+}
+
+@keyframes zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
 }
 
 .overlay {
@@ -31,81 +56,77 @@ body {
 
 .hero-text {
   color: white;
-  text-align: center;
+  animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(20px);}
+  to { opacity:1; transform: translateY(0);}
 }
 
 .hero-text h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 48px;
+  font-family: 'Playfair Display';
+  font-size: 40px;
   letter-spacing: 4px;
   margin: 0;
 }
 
 .and {
-  font-size: 20px;
-  margin: 10px 0;
-  opacity: 0.8;
+  margin: 12px 0;
 }
 
 .line {
-  width: 60px;
+  width: 40px;
   height: 1px;
   background: white;
-  margin: 20px auto;
-}
-
-.invite {
-  font-size: 16px;
-  line-height: 1.6;
-  opacity: 0.9;
+  margin: 18px auto;
 }
 
 .date {
-  margin-top: 20px;
   letter-spacing: 3px;
-  font-size: 18px;
 }
 
-/* GALLERY */
-section {
-  padding: 80px 20px;
-  text-align: center;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  max-width: 600px;
-  margin: auto;
-}
-
-.gallery img {
+/* PHOTO */
+.photo {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 14px;
+  margin-bottom: 16px;
 }
 
-/* MAP */
+/* BUTTON */
 .button {
-  padding: 14px 28px;
-  border: 1px solid #c8a2a2;
-  color: #c8a2a2;
-  margin: 10px;
-  cursor: pointer;
-  display: inline-block;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 30px;
+  background: #c8a2a2;
+  color: white;
+  transition: 0.3s;
 }
 
 .button:hover {
-  background: #c8a2a2;
-  color: white;
+  transform: scale(1.05);
 }
 
-/* RSVP */
+/* TIMER */
+.timer {
+  font-size: 18px;
+  margin-top: 10px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {opacity: 1;}
+  50% {opacity: 0.6;}
+  100% {opacity: 1;}
+}
+
+/* INPUT */
 input {
-  padding: 12px;
-  width: 220px;
-  margin: 10px;
-  border: 1px solid #ddd;
+  width: 90%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #e5dcd5;
+  margin-top: 15px;
 }
 </style>
 </head>
@@ -113,72 +134,116 @@ input {
 <body>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero show">
   <div class="overlay">
     <div class="hero-text">
       <h1>Дмитрий</h1>
       <div class="and">&</div>
       <h1>Юлия</h1>
-
       <div class="line"></div>
-
-      <p class="invite">
-        Будем счастливы разделить<br>
-        этот день вместе с вами
-      </p>
-
-      <div class="date">
-        21 • 08 • 2026
-      </div>
+      <div class="date">21 • 08 • 2026</div>
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
+<!-- ФОТО -->
 <section>
-  <div class="gallery">
-    <img src="галерея.jpg">
-    <img src="шапка.jpg">
-    
+  <div class="container">
+    <img src="1.jpg" class="photo">
+    <img src="шапка.jpg" class="photo">
   </div>
 </section>
 
-<!-- MAP -->
+<!-- БАНКЕТ -->
 <section>
-  <h2>Банкет</h2>
+  <div class="container">
+    <h2>Банкет</h2>
+    <p>Moon Magic</p>
+    <p>Чебоксары</p>
 
-  <p style="font-size:20px;">Moon Magic ✨</p>
-  <p>Чебоксары</p>
+    <img src="place.jpg" class="photo">
 
-  <div style="max-width:700px; margin:20px auto; border-radius:16px; overflow:hidden;">
-    <iframe 
-      src="https://yandex.ru/map-widget/v1/?text=Moon Magic Чебоксары&z=16" 
-      width="100%" 
-      height="320" 
-      frameborder="0">
-    </iframe>
+    <iframe src="https://yandex.ru/map-widget/v1/?text=Moon Magic Чебоксары&z=16"
+    width="100%" height="220"></iframe>
+
+    <a href="https://yandex.ru/maps/-/CPfkQ42m" target="_blank">
+      <div class="button">Проложить маршрут</div>
+    </a>
   </div>
+</section>
 
-  <a href="https://yandex.ru/maps/-/CPfkQ42m" target="_blank">
-    <div class="button">📍 Проложить маршрут</div>
-  </a>
+<!-- ТАЙМЕР -->
+<section>
+  <div class="container">
+    <h2>До свадьбы осталось</h2>
+    <div class="timer" id="timer"></div>
+  </div>
+</section>
+
+<!-- ДРЕСС-КОД -->
+<section>
+  <div class="container">
+    <h2>Дресс-код</h2>
+    <p>Скоро добавим ✨</p>
+  </div>
+</section>
+
+<!-- ДЕТАЛИ -->
+<section>
+  <div class="container">
+    <h2>Детали</h2>
+    <p>Пожалуйста, не дарите цветы 🌸</p>
+    <p>Ваше присутствие — лучший подарок</p>
+  </div>
 </section>
 
 <!-- RSVP -->
 <section>
-  <h2>Подтвердите участие</h2>
+  <div class="container">
+    <h2>Подтвердите участие</h2>
+    <input id="name" placeholder="Ваше имя">
+    <div class="button" onclick="send('Приду')">Приду ❤️</div>
+    <div class="button" onclick="send('Не приду')">Не приду</div>
+  </div>
+</section>
 
-  <input id="name" placeholder="Ваше имя">
-
-  <br>
-
-  <div class="button" onclick="send('Приду')">Приду ❤️</div>
-  <div class="button" onclick="send('Не приду')">Не приду</div>
-
-  <p id="status"></p>
+<!-- ФИНАЛ -->
+<section>
+  <div class="container">
+    <p>Любовь после свадьбы — это… кто сегодня моет посуду 😄</p>
+    <h3 style="font-family:Playfair Display;">
+      До встречи!<br>Дмитрий + Юлия
+    </h3>
+  </div>
 </section>
 
 <script>
+// SCROLL ANIMATION
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      sec.classList.add("show");
+    }
+  });
+});
+
+// TIMER
+const date = new Date("Aug 21, 2026").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = date - now;
+
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff/(1000*60*60))%24);
+
+  document.getElementById("timer").innerHTML =
+    "❤️ " + d + " дней " + h + " часов ❤️";
+}, 1000);
+
 function send(answer) {
   const name = document.getElementById('name').value;
 
@@ -187,17 +252,7 @@ function send(answer) {
     return;
   }
 
-  fetch("https://api.telegram.org/botВАШ_ТОКЕН/sendMessage", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      chat_id: "ВАШ_CHAT_ID",
-      text: "💍 Свадьба\nИмя: " + name + "\nОтвет: " + answer
-    })
-  });
-
-  document.getElementById("status").innerText =
-    "Спасибо! Ответ отправлен 💌";
+  alert("Спасибо! 💌");
 }
 </script>
 
