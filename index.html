@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Дмитрий & Юлия</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: #111;
+  background: #fff;
+  scroll-behavior: smooth;
+}
+
+section {
+  padding: 120px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1519741497674-611481863552') center/cover fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+}
+
+.subtitle {
+  margin-top: 10px;
+  letter-spacing: 3px;
+}
+
+/* TEXT BLOCK */
+.big-text {
+  font-size: 28px;
+  max-width: 600px;
+  margin: auto;
+  line-height: 1.4;
+}
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 16px;
+  transition: 0.6s;
+}
+
+.gallery img:hover {
+  transform: scale(1.07);
+}
+
+/* TIMER */
+.timer {
+  font-size: 32px;
+  margin-top: 20px;
+}
+
+/* RSVP */
+input {
+  padding: 14px;
+  width: 240px;
+  margin: 10px;
+  border: 1px solid #ddd;
+}
+
+.button {
+  padding: 14px 28px;
+  border: 1px solid #111;
+  margin: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background: #111;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero visible">
+  <div>
+    <h1>Дмитрий & Юлия</h1>
+    <div class="subtitle">21 августа 2026 • Чебоксары</div>
+  </div>
+</section>
+
+<!-- TEXT -->
+<section>
+  <div class="big-text">
+    Мы приглашаем вас стать частью дня,<br>
+    который изменит нашу жизнь
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57">
+    <img src="https://images.unsplash.com/photo-1501908734255-16579c18c25f">
+    <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93">
+    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc">
+  </div>
+</section>
+
+<!-- TIMER -->
+<section>
+  <h2>До свадьбы осталось</h2>
+  <div class="timer" id="timer"></div>
+</section>
+
+<!-- RSVP -->
+<section>
+  <h2>Подтвердите участие</h2>
+
+  <input id="name" placeholder="Ваше имя">
+
+  <br>
+
+  <div class="button" onclick="send('Приду')">Приду ❤️</div>
+  <div class="button" onclick="send('Не приду')">Не приду</div>
+
+  <p id="status"></p>
+</section>
+
+<script>
+// SCROLL ANIMATION
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.classList.add("visible");
+    }
+  });
+});
+
+// TIMER
+const date = new Date("Aug 21, 2026").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = date - now;
+
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff/(1000*60*60))%24);
+
+  document.getElementById("timer").innerHTML =
+    d + " дней " + h + " часов";
+}, 1000);
+
+// TELEGRAM
+function send(answer) {
+  const name = document.getElementById('name').value;
+
+  if (!name) {
+    alert("Введите имя");
+    return;
+  }
+
+  fetch("https://api.telegram.org/botВАШ_ТОКЕН/sendMessage", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      chat_id: "ВАШ_CHAT_ID",
+      text: "💍 Свадьба\nИмя: " + name + "\nОтвет: " + answer
+    })
+  });
+
+  document.getElementById("status").innerText =
+    "Спасибо! Ответ отправлен 💌";
+}
+</script>
+
+</body>
+</html>
